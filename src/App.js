@@ -1,0 +1,48 @@
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import ListEmployeeComponent from './components/ListEmployeeComponent';
+import HeaderComponent from './components/HeaderComponent';
+import FooterComponent from './components/FooterComponent';
+import CreateEmployeeComponent from './components/CreateEmployeeComponent';
+import UpdateEmployeeComponent from './components/UpdateEmployeeComponent';
+import ViewEmployeeComponent from './components/ViewEmployeeComponent';
+import Login from './components/Login';
+
+class App extends Component {
+  constructor(props) {  
+    super(props)
+
+    this.onRefreshHandler = this.onRefreshHandler.bind(this);
+  }
+
+  onRefreshHandler() {
+    this.forceUpdate();
+  }
+
+  render() {
+    return (
+      <div>
+          <Router>
+                <HeaderComponent />
+                  <div className="container">
+                      <Switch> 
+                            <Route exact path="/login" render={() => <Login onLoginSuccess={this.onRefreshHandler} />} />
+                            <Route path = "/" exact component = {ListEmployeeComponent}></Route>
+                            <Route path = "/employees" component = {ListEmployeeComponent}></Route>
+                            <Route path = "/add-employee/:id" component = {CreateEmployeeComponent}></Route>
+                            <Route path = "/view-employee/:id" component = {ViewEmployeeComponent}></Route>
+                            {/* <Route path = "/update-employee/:id" component = {UpdateEmployeeComponent}></Route> */}
+                      </Switch>
+                  </div>
+                <FooterComponent />
+          </Router>
+      </div>
+      
+    );
+  }
+}
+
+
+export default App;
